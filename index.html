@@ -141,10 +141,121 @@
                 
                 <fieldset id="oppPokemon" class="col-md-4">
                     <legend>相手</legend>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">ポケモン</label>
+                            <input type="text" class="name form-control" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="level">レベル</label>
+                            <input type="number" class="level form-control" value="50" max="100" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="ability">特性</label>
+                            <input type="text" class="ability form-control" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="item">持ち物</label>
+                            <input type="text" class="item form-control" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="nature">性格</label>
+                            <select class="nature form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="moves">技</label>
+                            <div class="input-group">
+                                <input type="text" class="move1 form-control">
+                                <span class="input-group-btn"><button class="btn btn-secondary" type="button">追加</button></span>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="move2 form-control">
+                                <span class="input-group-btn"><button class="btn btn-secondary" type="button">追加</button></span>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="move3 form-control">
+                                <span class="input-group-btn"><button class="btn btn-secondary" type="button">追加</button></span>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="move4 form-control">
+                                <span class="input-group-btn"><button class="btn btn-secondary" type="button">追加</button></span>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stats">ステータス</label>
+                        
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#iv-tab" data-toggle="tab">努力値</a></li>
+                                <li><a href="#ev-tab" data-toggle="tab">個体値</a></li>
+                                <li><a href="#boost-tab" data-toggle="tab">積み技</a></li>
+                            </ul>
+                            
+                            <div class="tab-content">
+                                <div class="iv-tab">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="HP">HP</label>
+                                            <input type="number" class="HP form-control" value="31" min="0" max="31">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Atk">攻撃</label>
+                                            <input type="number" class="Atk form-control" value="31" min="0" max="31">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Def">防御</label>
+                                            <input type="number" class="Def form-control" value="31" min="0" max="31">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spa">特攻</label>
+                                            <input type="number" class="Spa form-control" value="31" min="0" max="31">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spd">特防</label>
+                                            <input type="number" class="Spd form-control" value="31" min="0" max="31">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spe">素早</label>
+                                            <input type="number" class="Spe form-control" value="31" min="0" max="31">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </fieldset>
                 
                 <fieldset id="result" class="col-md-4">
                     <legend>結果</legend>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="myMoves">自分の技</label>
+                            <select multiple class="myMoves form-control"></select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="oppMoves">相手の技</label>
+                            <select multiple class="oppMoves form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10"></div>
+                        <button id="calculate" class="btn btn-secondary" type="button">計算</button>
+                    </div>
+                    <textarea id="result" type="text" class="form-control" value="" rows="50"></textarea>
                 </fieldset>
             </div>
         </div>
