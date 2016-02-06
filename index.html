@@ -87,13 +87,13 @@
                             <label for="stats">ステータス</label>
                         
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#iv-tab" data-toggle="tab">努力値</a></li>
-                                <li><a href="#ev-tab" data-toggle="tab">個体値</a></li>
-                                <li><a href="#boost-tab" data-toggle="tab">積み技</a></li>
+                                <li class="active"><a href="#myIVTab" data-toggle="tab">個体値</a></li>
+                                <li><a href="#myEVTab" data-toggle="tab">努力値</a></li>
+                                <li><a href="#myBoostTab" data-toggle="tab">積み技</a></li>
                             </ul>
                             
                             <div class="tab-content">
-                                <div class="iv-tab">
+                                <div id="myIVTab" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="form-group col-md-5">
@@ -132,7 +132,99 @@
                                             <input type="number" class="Spe form-control" value="31" min="0" max="31">
                                         </div>
                                     </div>
+                                </div>
+                                <div id="myEVTab" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="HP">HP</label>
+                                            <input type="number" class="HP form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Atk">攻撃</label>
+                                            <input type="number" class="Atk form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                    </div>
                                     
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Def">防御</label>
+                                            <input type="number" class="Def form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spa">特攻</label>
+                                            <input type="number" class="Spa form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spd">特防</label>
+                                            <input type="number" class="Spd form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spe">素早</label>
+                                            <input type="number" class="Spe form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="myBoostTab" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="HP">HP</label>
+                                            <input type="number" class="HP form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Atk">攻撃</label>
+                                            <input type="number" class="Atk form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Def">防御</label>
+                                            <input type="number" class="Def form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spa">特攻</label>
+                                            <input type="number" class="Spa form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spd">特防</label>
+                                            <input type="number" class="Spd form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spe">素早</label>
+                                            <input type="number" class="Spe form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Accuracy">特防</label>
+                                            <input type="number" class="Accuracy form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Evasion">素早</label>
+                                            <input type="number" class="Evasion form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -187,13 +279,12 @@
                             <label for="stats">ステータス</label>
                         
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#iv-tab" data-toggle="tab">努力値</a></li>
-                                <li><a href="#ev-tab" data-toggle="tab">個体値</a></li>
-                                <li><a href="#boost-tab" data-toggle="tab">積み技</a></li>
+                                <li class="active"><a href="#oppIVTab" data-toggle="tab">個体値</a></li>
+                                <li><a href="#oppEVTab" data-toggle="tab">努力値</a></li>
+                                <li><a href="#oppBoostTab" data-toggle="tab">積み技</a></li>
                             </ul>
-                            
                             <div class="tab-content">
-                                <div class="iv-tab">
+                                <div id="oppIVTab" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="form-group col-md-5">
@@ -232,9 +323,102 @@
                                             <input type="number" class="Spe form-control" value="31" min="0" max="31">
                                         </div>
                                     </div>
+                                </div>
+                                <div id="oppEVTab" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="HP">HP</label>
+                                            <input type="number" class="HP form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Atk">攻撃</label>
+                                            <input type="number" class="Atk form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                    </div>
                                     
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Def">防御</label>
+                                            <input type="number" class="Def form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spa">特攻</label>
+                                            <input type="number" class="Spa form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spd">特防</label>
+                                            <input type="number" class="Spd form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spe">素早</label>
+                                            <input type="number" class="Spe form-control" value="0" min="0" max="252" step="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="oppBoostTab" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="HP">HP</label>
+                                            <input type="number" class="HP form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Atk">攻撃</label>
+                                            <input type="number" class="Atk form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Def">防御</label>
+                                            <input type="number" class="Def form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spa">特攻</label>
+                                            <input type="number" class="Spa form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spd">特防</label>
+                                            <input type="number" class="Spd form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Spe">素早</label>
+                                            <input type="number" class="Spe form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Accuracy">特防</label>
+                                            <input type="number" class="Accuracy form-control" value="0" min="-6" max="6">
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Evasion">素早</label>
+                                            <input type="number" class="Evasion form-control" value="0" min="-6" max="6">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </form>
                 </fieldset>
