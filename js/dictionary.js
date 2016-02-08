@@ -1982,3 +1982,5 @@ dictionary = {
         "quirky": "きまぐれ"
     }
 }
+
+exports.dictionary = dictionary;
