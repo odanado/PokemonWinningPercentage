@@ -153,13 +153,6 @@ $(function() {
             max = Math.max(max, hp2);
         }
         
-        for (var i = min; i <= max; i++) {
-            if (prob1[i])
-                prob1[i] /= 1.0 * playCount;
-            if (prob2[i])
-                prob2[i] /= 1.0 * playCount;
-        }
-        
     }
     
     function writeResult(ret) {
@@ -185,14 +178,22 @@ $(function() {
         min = 1000;
         max = 0;
         var counter = 0;
+        var loopCount = Number($('#loopCount').val());
         
         (function callback() {
-            if (counter == 10) {
+            if (counter == loopCount) {
+                
+                for (var i = min; i <= max; i++) {
+                    if (prob1[i])
+                        prob1[i] /= 100.0 * loopCount;
+                    if (prob2[i])
+                        prob2[i] /= 100.0 * loopCount;
+                }
                 writeResult([prob1, prob2, min, max]);
                 return;
             }
            simulate(100, p1, p2, move1, move2);
-           updateprogressBar(counter+1, 10);
+           updateprogressBar(counter+1, loopCount);
            counter += 1;
            
            setTimeout(callback, 0);
