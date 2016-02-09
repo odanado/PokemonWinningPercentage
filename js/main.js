@@ -27,4 +27,17 @@ $(function() {
         addMove('fieldset#oppPokemon div.moves input#moveText' + num, '#oppMoves');
     });
     
+    function clearMoves() {
+        $('div.moves input[id^=moveText]').each(function(idx, text) {
+           $(text).attr('readonly', false); 
+        });
+        
+        $('#myMoves').find('option').remove();
+        $('#oppMoves').find('option').remove();
+    }
+    
+    $('button#clear').on('click', function () {
+        clearMoves();
+    });
+    
 });
