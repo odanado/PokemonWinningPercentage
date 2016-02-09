@@ -27,7 +27,7 @@ $(document).ready(function(){
             results: function() {}
         }
     });
-    $(".move").autocomplete({
+    $(".move-text").autocomplete({
         source: makeArray(dictionary["move"]),
         messages: {
             noResults: '',
