@@ -72,6 +72,14 @@ $(function() {
         return p;
     }
     
+    function makeMoves(side) {
+        var moves = [];
+        $("#" + side + "Moves").find("option").each(function(i, opt) {
+            moves.push($(opt).val());
+        });
+        return moves;
+    }
+    
     function validInput() {
         var toId = translation.toId;
         var sides = ["my", "opp"];
@@ -109,5 +117,12 @@ $(function() {
         }
         var p1 = makePokemon("my");
         var p2 = makePokemon("opp");
+        var move1 = makeMoves("my");
+        var move2 = makeMoves("opp");
+        
+        if (move1.length !== move2.length) {
+            alert("両者の技の数を同じにしてください。");
+            return;
+        }
     });
 });
