@@ -64,13 +64,42 @@ $(function() {
         
         p['moves'] = [];
         $('fieldset#' + side + 'Pokemon div.moves input').each(function(i, text) {
-            p['moves'].push(toId('move', $(text).val()));
+            var move = toId('move', $(text).val());
+            if (move)
+                p['moves'].push(move);
         });
         
         return p;
     }
     
     function validInput() {
+        var toId = translation.toId;
+        var sides = ["my", "opp"];
+        for (var i = 0; i < sides.length; i++) {
+            var side = sides[i];
+            var name = $('fieldset#' + side + 'Pokemon .name').val();
+            if (!toId('pokemon', name)) {
+                alert("ポケモン名 " + name + " が不正です。");
+                return false;
+            }
+            var ability = $('fieldset#' + side + 'Pokemon .ability').val();
+            if (!toId('ability', ability)) {
+                alert("特性 " + ability + " が不正です。");
+                return false;
+            }
+            var item = $('fieldset#' + side + 'Pokemon .item').val();
+            if (!toId('item', item)) {
+                alert("持ち物 " + item + " が不正です。");
+                return false;
+            }
+            $('fieldset#' + side + 'Pokemon div.moves input').each(function(i, text) {
+                var move = $(text).val();
+                if (move !== "" && !toId('move', move)) {
+                    alert("技名 " + move + " が不正です。");
+                    return false;
+                }
+            });
+        }
         return true;
     }
     
