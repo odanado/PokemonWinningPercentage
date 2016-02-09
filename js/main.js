@@ -116,12 +116,16 @@ $(function() {
         return true;
     }
     
+    function updateprogressBar(nowCount, playCount) {
+        var percent = (100.0 * nowCount / playCount).toFixed(0) + '%';
+        $('.progress-bar').width(percent);
+        $('.progress-bar').text('進捗: ' + percent);
+    }
+    
+    var prob1 = [], prob2 = [];
+    var min, max;
     function simulate(playCount, p1, p2, move1, move2) {
-        var prob1 = [], prob2 = [];
-        var min, max;
-        min = 1000;
-        max = 0;
-
+        
         for (var i = 0; i < playCount; i++) {
             var battle = BattleEngine.Battle.construct();
         
@@ -156,7 +160,6 @@ $(function() {
                 prob2[i] /= 1.0 * playCount;
         }
         
-        return [prob1, prob2, min, max];
     }
     
     function writeResult(ret) {
@@ -175,9 +178,26 @@ $(function() {
         isCalculating = false;
     }
     
+    
     function run(p1, p2, move1, move2) {
-        var ret = simulate(100, p1, p2, move1, move2);
-        writeResult(ret);
+        prob1 = [];
+        prob2 = [];
+        min = 1000;
+        max = 0;
+        var counter = 0;
+        
+        (function callback() {
+            if (counter == 10) {
+                writeResult([prob1, prob2, min, max]);
+                return;
+            }
+           simulate(100, p1, p2, move1, move2);
+           updateprogressBar(counter+1, 10);
+           counter += 1;
+           
+           setTimeout(callback, 0);
+        })();
+        
     }
     
     var isCalculating = false;
@@ -202,7 +222,7 @@ $(function() {
         }
         isCalculating = true;
         $("#resultText").val("計算中...");
-        setTimeout(run(p1, p2, move1, move2), 0);
         
+        setTimeout(function(){ run(p1, p2, move1, move2); }, 0);
     });
 });
