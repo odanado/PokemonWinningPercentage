@@ -1,5 +1,10 @@
 var $ = require('jquery');
 var translation = require('./translation.js');
+
+const noop = function () {};
+process.send = noop;
+var BattleEngine = require('../Pokemon-ShowDown/battle-engine.js');
+
 $(function() {
 
     function addMove(text, select) {
@@ -45,7 +50,7 @@ $(function() {
         var statsNames = ["hp", "atk", "def", "spa", "spd", "spe", "accuracy", "evasion"];
         var tag = 'div#' + id + ' input[type=number].';
         for (var i = 0; i < statsNames.length; i++) {
-            ret[statsNames[i]] = $(tag + statsNames[i]).val();
+            ret[statsNames[i]] = Number($(tag + statsNames[i]).val());
         }
         
         return ret;
@@ -57,7 +62,7 @@ $(function() {
         p['species'] = toId('pokemon', $('fieldset#' + side + 'Pokemon .name').val());
         p['ability'] = toId('ability', $('fieldset#' + side + 'Pokemon .ability').val());
         p['item']    = toId('item', $('fieldset#' + side + 'Pokemon .item').val());
-        p['level']   = $('fieldset#' + side + 'Pokemon .level').val();
+        p['level']   = Number($('fieldset#' + side + 'Pokemon .level').val());
         p['nature']  = $('fieldset#' + side + 'Pokemon .nature').val();
         p['ivs']     = getStats(side + 'IVTab');
         p['evs']     = getStats(side + 'EVTab');
@@ -111,10 +116,81 @@ $(function() {
         return true;
     }
     
+    function simulate(playCount, p1, p2, move1, move2) {
+        var prob1 = [], prob2 = [];
+        var min, max;
+        min = 1000;
+        max = 0;
+
+        for (var i = 0; i < playCount; i++) {
+            var battle = BattleEngine.Battle.construct();
+        
+            battle.join('p1', 'Guest 1', 1, [p1]);
+            battle.join('p2', 'Guest 2', 1, [p2]);
+            
+            battle.p1.active[0].boostBy(getStats("myBoostTab"));
+            battle.p2.active[0].boostBy(getStats("oppBoostTab"));
+            
+            for (var j = 0; j < move1.length; j++) {
+                battle.choose('p1', 'move ' + move1[j]);
+                battle.choose('p2', 'move ' + move2[j]);
+            }
+            
+            var hp1 = battle.p1.pokemon[0].hp;
+            var hp2 = battle.p2.pokemon[0].hp;
+            prob1[hp1] = prob1[hp1] || 0;
+            prob2[hp2] = prob2[hp2] || 0;
+            
+            prob1[hp1] += 1;
+            prob2[hp2] += 1;
+            min = Math.min(min, hp1);
+            min = Math.min(min, hp2);
+            max = Math.max(max, hp1);
+            max = Math.max(max, hp2);
+        }
+        
+        for (var i = min; i <= max; i++) {
+            if (prob1[i])
+                prob1[i] /= 1.0 * playCount;
+            if (prob2[i])
+                prob2[i] /= 1.0 * playCount;
+        }
+        
+        return [prob1, prob2, min, max];
+    }
+    
+    function writeResult(ret) {
+        var text = "";
+        text += $("#myPokemon .name").val() + "HP確率分布\n";
+        text += "残りHP: その確率\n";
+        var prob1 = ret[0], prob2 = ret[1];
+        var min = ret[2];
+        var max = ret[3];
+        for (var i = min; i <= max; i++) {
+            if (prob1[i])
+                text += i + ': ' + (prob1[i] * 100).toFixed(0) + '%\n';
+        }
+        
+        $("#resultText").val(text);
+        isCalculating = false;
+    }
+    
+    function run(p1, p2, move1, move2) {
+        var ret = simulate(100, p1, p2, move1, move2);
+        writeResult(ret);
+    }
+    
+    var isCalculating = false;
+    
     $('button#calculate').on('click', function () {
+        
         if(!validInput()) {
             return;
         }
+        if (isCalculating) {
+            return;
+        }
+        
         var p1 = makePokemon("my");
         var p2 = makePokemon("opp");
         var move1 = makeMoves("my");
@@ -124,5 +200,9 @@ $(function() {
             alert("両者の技の数を同じにしてください。");
             return;
         }
+        isCalculating = true;
+        $("#resultText").val("計算中...");
+        setTimeout(run(p1, p2, move1, move2), 0);
+        
     });
 });
