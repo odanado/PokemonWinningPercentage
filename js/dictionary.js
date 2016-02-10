@@ -899,7 +899,7 @@ dictionary = {
         "protect": "まもる",
         "psybeam": "サイケこうせん",
         "psychup": "じこあんじ",
-        "psychic": "超",
+        "psychic": "サイコキネシス",
         "psychoboost": "サイコブースト",
         "psychocut": "サイコカッター",
         "psychoshift": "サイコシフト",
