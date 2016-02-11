@@ -176,7 +176,7 @@ $(function() {
             if (prob[i] && prob[i][0]) {
                 wp += prob[i][0];
             }
-            if (prob[0][i]) {
+            if (prob[0] && prob[0][i]) {
                 lp += prob[0][i];
             }
         }
