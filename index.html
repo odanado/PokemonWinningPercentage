@@ -472,7 +472,18 @@
                             </div>
                         </div>
                         
-                        <textarea id="resultText" type="text" class="form-control" value="" rows="50"></textarea>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#myProbDist" data-toggle="tab">自分の確率分布</a></li>
+                            <li><a href="#oppProbDist" data-toggle="tab">相手の確率分布</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="myProbDist" class="tab-pane fade in active">
+                                <textarea id="myResultText" type="text" class="form-control" value="" rows="50"></textarea>
+                            </div>
+                            <div id="oppProbDist" class="tab-pane fade">
+                                <textarea id="oppResultText" type="text" class="form-control" value="" rows="50"></textarea>
+                            </div>
+                        </div>
                     </fieldset>
                 </div>
             </div>

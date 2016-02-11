@@ -123,7 +123,6 @@ $(function() {
     }
     
     var prob1 = [], prob2 = [];
-    var min, max;
     function simulate(playCount, p1, p2, move1, move2) {
         
         for (var i = 0; i < playCount; i++) {
@@ -147,27 +146,28 @@ $(function() {
             
             prob1[hp1] += 1;
             prob2[hp2] += 1;
-            min = Math.min(min, hp1);
-            min = Math.min(min, hp2);
-            max = Math.max(max, hp1);
-            max = Math.max(max, hp2);
         }
         
     }
     
-    function writeResult(ret) {
+    function makeResultText(side, prob) {
         var text = "";
-        text += $("#myPokemon .name").val() + "HP確率分布\n";
+        text += $('#' + side + 'Pokemon .name').val() + "HPの確率分布\n";
         text += "残りHP: その確率\n";
-        var prob1 = ret[0], prob2 = ret[1];
-        var min = ret[2];
-        var max = ret[3];
-        for (var i = min; i <= max; i++) {
-            if (prob1[i])
-                text += i + ': ' + (prob1[i] * 100).toFixed(0) + '%\n';
+        for (var i = 0; i < 1000; i++) {
+            if (prob[i]) {
+                text += i + ': ' + (prob[i] * 100).toFixed(0) + '%\n';
+            }
         }
         
-        $("#resultText").val(text);
+        return text;
+    }
+    
+    function writeResult(ret) {
+        var prob1 = ret[0], prob2 = ret[1];
+        
+        $("#myResultText").val(makeResultText('my', prob1));
+        $("#oppResultText").val(makeResultText('opp', prob2));
         isCalculating = false;
     }
     
@@ -175,21 +175,19 @@ $(function() {
     function run(p1, p2, move1, move2) {
         prob1 = [];
         prob2 = [];
-        min = 1000;
-        max = 0;
         var counter = 0;
         var loopCount = Number($('#loopCount').val());
         
         (function callback() {
             if (counter == loopCount) {
                 
-                for (var i = min; i <= max; i++) {
+                for (var i = 0; i < 1000; i++) {
                     if (prob1[i])
                         prob1[i] /= 100.0 * loopCount;
                     if (prob2[i])
                         prob2[i] /= 100.0 * loopCount;
                 }
-                writeResult([prob1, prob2, min, max]);
+                writeResult([prob1, prob2]);
                 return;
             }
            simulate(100, p1, p2, move1, move2);
@@ -222,7 +220,8 @@ $(function() {
             return;
         }
         isCalculating = true;
-        $("#resultText").val("計算中...");
+        $("#myResultText").val("計算中...");
+        $("#oppResultText").val("計算中...");
         
         setTimeout(function(){ run(p1, p2, move1, move2); }, 0);
     });
