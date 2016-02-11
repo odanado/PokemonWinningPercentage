@@ -123,6 +123,7 @@ $(function() {
     }
     
     var prob1 = [], prob2 = [];
+    var prob = [];
     function simulate(playCount, p1, p2, move1, move2) {
         
         for (var i = 0; i < playCount; i++) {
@@ -141,11 +142,16 @@ $(function() {
             
             var hp1 = battle.p1.pokemon[0].hp;
             var hp2 = battle.p2.pokemon[0].hp;
+            
             prob1[hp1] = prob1[hp1] || 0;
             prob2[hp2] = prob2[hp2] || 0;
             
             prob1[hp1] += 1;
             prob2[hp2] += 1;
+            
+            prob[hp1] = prob[hp1] || [];
+            prob[hp1][hp2] = prob[hp1][hp2] || 0;
+            prob[hp1][hp2] += 1;
         }
         
     }
@@ -163,8 +169,21 @@ $(function() {
         return text;
     }
     
-    function writeResult(ret) {
-        var prob1 = ret[0], prob2 = ret[1];
+    function writeResult() {
+        var text = "";
+        var wp = 0, lp = 0;
+        for (var i = 0; i < 1000; i++) {
+            if (prob[i] && prob[i][0]) {
+                wp += prob[i][0];
+            }
+            if (prob[0][i]) {
+                lp += prob[0][i];
+            }
+        }
+        text += $('#myPokemon .name').val() + 'の';
+        text += '勝率: ' + (wp * 100).toFixed(0) + '%, ';
+        text += '敗率: ' + (lp * 100).toFixed(0) + '%';
+        $('#WPResult p').text(text);
         
         $("#myResultText").val(makeResultText('my', prob1));
         $("#oppResultText").val(makeResultText('opp', prob2));
@@ -175,6 +194,7 @@ $(function() {
     function run(p1, p2, move1, move2) {
         prob1 = [];
         prob2 = [];
+        prob = [];
         var counter = 0;
         var loopCount = Number($('#loopCount').val());
         
@@ -186,8 +206,13 @@ $(function() {
                         prob1[i] /= 100.0 * loopCount;
                     if (prob2[i])
                         prob2[i] /= 100.0 * loopCount;
+                    for (var j = 0; j < 1000; j++) {
+                        if (prob[i]) {
+                            prob[i][j] /= 100.0 * loopCount;
+                        }
+                    }
                 }
-                writeResult([prob1, prob2]);
+                writeResult();
                 return;
             }
            simulate(100, p1, p2, move1, move2);
