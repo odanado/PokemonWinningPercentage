@@ -132,12 +132,23 @@ $(function() {
         }
     }
     
+    function addStatus(sideName, side) {
+        var status = $('#' + sideName + 'StatusTab input[name=statusRadios]:checked').val();
+        if (status) {
+            side.status = status;
+        }
+    }
+    
     var prob1 = [], prob2 = [];
     var prob = [];
     function simulate(playCount, p1, p2, move1, move2) {
         
         for (var i = 0; i < playCount; i++) {
             var battle = BattleEngine.Battle.construct();
+        
+            // 状態異常を追加する
+            addStatus('my', p1);
+            addStatus('opp', p2);
         
             battle.join('p1', 'Guest 1', 1, [p1]);
             battle.join('p2', 'Guest 2', 1, [p2]);
