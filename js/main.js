@@ -149,9 +149,23 @@ $(function() {
             prob1[hp1] += 1;
             prob2[hp2] += 1;
             
+            
             prob[hp1] = prob[hp1] || [];
-            prob[hp1][hp2] = prob[hp1][hp2] || 0;
-            prob[hp1][hp2] += 1;
+            
+            // 両者のHPが0の時は、シミュレータの結果を参照する
+            if (hp1 === 0 && hp2 === 0) {
+                prob[0][0] = prob[0][0] || {'p1': 0, 'p2': 0};
+                if (battle.winner === "Guest 1") {
+                    prob[0][0].p1 += 1;
+                }
+                else {
+                    prob[0][0].p2 += 1;
+                }
+            }
+            else {
+                prob[hp1][hp2] = prob[hp1][hp2] || 0;
+                prob[hp1][hp2] += 1;
+            }
         }
         
     }
@@ -172,13 +186,17 @@ $(function() {
     function writeResult() {
         var text = "";
         var wp = 0, lp = 0;
-        for (var i = 0; i < 1000; i++) {
+        for (var i = 1; i < 1000; i++) {
             if (prob[i] && prob[i][0]) {
                 wp += prob[i][0];
             }
             if (prob[0] && prob[0][i]) {
                 lp += prob[0][i];
             }
+        }
+        if (prob[0] && prob[0][0]) {
+            wp += prob[0][0].p1;
+            lp += prob[0][0].p2;
         }
         text += $('#myPokemon .name').val() + 'の';
         text += '勝率: ' + (wp * 100).toFixed(0) + '%, ';
@@ -207,8 +225,16 @@ $(function() {
                     if (prob2[i])
                         prob2[i] /= 100.0 * loopCount;
                     for (var j = 0; j < 1000; j++) {
-                        if (prob[i]) {
-                            prob[i][j] /= 100.0 * loopCount;
+                        if (i === 0 && j === 0) {
+                            if (prob[0][0]) {
+                                prob[0][0].p1 /= 100.0 * loopCount;
+                                prob[0][0].p2 /= 100.0 * loopCount;
+                            }
+                        }
+                        else {
+                            if (prob[i]) {
+                                prob[i][j] /= 100.0 * loopCount;
+                            }
                         }
                     }
                 }
