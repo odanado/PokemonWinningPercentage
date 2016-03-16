@@ -122,6 +122,16 @@ $(function() {
         $('.progress-bar').text('進捗: ' + percent);
     }
     
+    function addSideCondition(sideName, side) {
+        if ($('#' + sideName +'StatusTab .reflect').prop('checked')) {
+            side.addSideCondition('reflect');
+        }
+        
+        if ($('#' + sideName +'StatusTab .lightScreen').prop('checked')) {
+            side.addSideCondition('light screen');
+        }
+    }
+    
     var prob1 = [], prob2 = [];
     var prob = [];
     function simulate(playCount, p1, p2, move1, move2) {
@@ -134,6 +144,10 @@ $(function() {
             
             battle.p1.active[0].boostBy(getStats("myBoostTab"));
             battle.p2.active[0].boostBy(getStats("oppBoostTab"));
+            
+            // 両壁を追加する
+            addSideCondition('my', battle.p1);
+            addSideCondition('opp', battle.p2);
             
             for (var j = 0; j < move1.length; j++) {
                 battle.choose('p1', 'move ' + move1[j]);
